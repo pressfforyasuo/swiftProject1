@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var sumForDays = 0.0
+    
     @IBOutlet weak var beerFirst: UILabel!
     @IBOutlet weak var beerSecond: UILabel!
     @IBOutlet weak var beerThrid: UILabel!
@@ -18,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var beerFirstCount: UILabel!
     
     @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var totalSum: UILabel!
     
     @IBOutlet weak var firstPlus: UIButton!
     @IBOutlet weak var secondPlus: UIButton!
@@ -29,10 +32,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var sellButton: UIButton!
     @IBOutlet weak var startDay: UIButton!
-    
-    @IBAction func startDayTouch(_ sender: Any) {
- 
-    }
+    @IBOutlet weak var endDay: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +45,9 @@ class ViewController: UIViewController {
         beerFirst.text = "\(firstBeer.name)"
         beerSecond.text = "\(secondBeer.name)"
         beerThrid.text = "\(thridBeer.name)"
+        
+        sellButton.isEnabled = false
+        endDay.isEnabled = false
     }
     
     @IBAction func firstPlusTouch(_ sender: Any) {
@@ -102,10 +105,27 @@ class ViewController: UIViewController {
     }
     
     @IBAction func sellButtonTouch(_ sender: Any) {
-        price.text = "\(beerFirstCount.text!) * \(Manager.shared.getPrice(name: beerFirst.text!))"
+        let totalPirce = Double(beerFirstCount.text!)! * Manager.shared.getPrice(name: beerFirst.text!) + Double(beerSecondCount.text!)! * Manager.shared.getPrice(name: beerSecond.text!) + Double(beerThridCount.text!)! * Manager.shared.getPrice(name: beerThrid.text!)
+        
+        price.text = "\(beerFirst.text!) \(beerFirstCount.text!) * \(Manager.shared.getPrice(name: beerFirst.text!))$, \(beerSecond.text!) \(beerSecondCount.text!) * \(Manager.shared.getPrice(name: beerSecond.text!))$, \(beerThrid.text!) \(beerSecondCount.text!) * \(Manager.shared.getPrice(name: beerThrid.text!))$, total price: \(totalPirce)$"
+        
+        sumForDays += totalPirce
         beerFirstCount.text = "0"
         beerSecondCount.text = "0"
         beerThridCount.text = "0"
+    }
+    
+    @IBAction func startDayTouch(_ sender: Any) {
+        sellButton.isEnabled = true
+        endDay.isEnabled = true
+        startDay.isEnabled = false
+    }
+    
+    @IBAction func endDayTouch(_ sender: Any) {
+        totalSum.text = "Total sum for all days: \(sumForDays)$"
+        sellButton.isEnabled = false
+        startDay.isEnabled = true
+        endDay.isEnabled = false
     }
 }
     
