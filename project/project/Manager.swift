@@ -18,6 +18,15 @@ class Manager {
         return firstBeer
     }
     
+    func getPrice(name name: String) -> Double {
+        switch name {
+        case "Amsterdam" : return 3.5
+        case "Ohota" : return 1.0
+        case "Baltika" : return 1.6
+        default : return 0.0
+        }
+    }
+    
     func createBeerSecond() -> Beer {
         let secondBeer = Beer(name: "Baltika", price: 1.6)
         

@@ -12,11 +12,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var beerFirst: UILabel!
     @IBOutlet weak var beerSecond: UILabel!
     @IBOutlet weak var beerThrid: UILabel!
-    @IBOutlet weak var startDay: UIButton!
     
     @IBOutlet weak var beerThridCount: UILabel!
     @IBOutlet weak var beerSecondCount: UILabel!
     @IBOutlet weak var beerFirstCount: UILabel!
+    
+    @IBOutlet weak var price: UILabel!
     
     @IBOutlet weak var firstPlus: UIButton!
     @IBOutlet weak var secondPlus: UIButton!
@@ -25,6 +26,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var firstMinus: UIButton!
     @IBOutlet weak var secondMinus: UIButton!
     @IBOutlet weak var thridMinus: UIButton!
+    
+    @IBOutlet weak var sellButton: UIButton!
+    @IBOutlet weak var startDay: UIButton!
     
     @IBAction func startDayTouch(_ sender: Any) {
  
@@ -97,6 +101,12 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func sellButtonTouch(_ sender: Any) {
+        price.text = "\(beerFirstCount.text!) * \(Manager.shared.getPrice(name: beerFirst.text!))"
+        beerFirstCount.text = "0"
+        beerSecondCount.text = "0"
+        beerThridCount.text = "0"
+    }
 }
     
 
